@@ -1,0 +1,12 @@
+.cell {
+  width: 48px;
+  height: 48px;
+  line-height: 50px;
+  border: 1px solid;
+}
+.selected {
+  background-color: #ccc;
+}
+.selected.empty {
+  cursor: pointer;
+}

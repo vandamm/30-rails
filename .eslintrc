@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/react"
+  ],
+  "plugins": ["import", "react", "react-hooks"],
+  "env": {
+    "browser": true,
+    "jest": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": { "jsx": true },
+    "warnOnUnsupportedTypeScriptVersion": true
+  },
+  "rules": {
+    "react/prop-types": ["off"],
+    "no-unused-vars": ["error", { "ignoreRestSiblings": true }]
+  }
+}
