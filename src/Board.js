@@ -24,5 +24,5 @@ export default function Board(props) {
 }
 
 export function mapBoard(rows, fn) {
-  return rows.map((cells, x) => cells.map((cell, y) => fn(cell, x, y)));
+  return rows.map(cells => cells.map(fn));
 }

@@ -30,10 +30,10 @@ function App() {
       return;
 
     setRows(
-      mapBoard(rows, (cell, cellX, cellY) => {
-        if (selected !== cellX && selected !== cellY) return cell;
+      mapBoard(rows, cell => {
+        if (selected !== cell.x && selected !== cell.y) return cell;
 
-        if (cellX === x && cellY === y)
+        if (cell.x === x && cell.y === y)
           return { ...cell, value: tile, updated: true };
 
         if (!cell.updated) return cell;
