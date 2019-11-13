@@ -48,8 +48,35 @@ function App() {
 
 export default App;
 
-function initRows(width, height) {
-  return Array.from(Array(height)).map((_, x) =>
-    Array.from(Array(width)).map((_, y) => ({ x, y }))
-  );
+function initBoard() {
+  return [
+    [{}, {}, {}, { s: 1 }, {}, {}, {}, {}],
+    [{}, {}, { m: true }, {}, {}, {}, {}, {}],
+    [{}, {}, {}, {}, {}, { m: true }, {}, {}],
+    [{ s: 2 }, {}, {}, {}, { b: true }, {}, {}, {}],
+    [{}, {}, {}, { m: true }, { mine: true }, {}, {}, { s: 4 }],
+    [{}, {}, {}, {}, {}, {}, { m: true }, {}],
+    [{}, {}, {}, {}, {}, { m: true }, {}, {}],
+    [{}, {}, {}, { s: 3 }, {}, {}, {}, {}]
+  ].map(setupBoard);
+}
+
+function setupBoard(row, x) {
+  return row.map((cell, y) => {
+    const { s: station, m: mountain, mine } = cell;
+
+    const borders = [0, 7];
+    const isBorder = borders.includes(x) || borders.includes(y);
+    const isOccupied = isBorder || station > 0 || mountain || mine;
+    const type = getType(cell);
+
+    return { x, y, isOccupied, isBorder, type, ...(station && { station }) };
+  });
+}
+
+function getType(cell) {
+  if (cell.m) return "MOUNTAIN";
+  if (cell.b) return "BONUS";
+  if (cell.mine) return "MINE";
+  if (cell.s) return "STATION";
 }
