@@ -34,3 +34,25 @@
   border-radius: 30px;
   border: 2px solid;
 }
+.track {
+  background-position: center;
+  background-size: contain;
+}
+.track-1 {
+  background-image: url(/images/die-1.png);
+}
+.track-2 {
+  background-image: url(/images/die-2.png);
+}
+.track-3 {
+  background-image: url(/images/die-3.png);
+}
+.track-4 {
+  background-image: url(/images/die-4.png);
+}
+.track-5 {
+  background-image: url(/images/die-5.png);
+}
+.track-6 {
+  background-image: url(/images/die-6.png);
+}

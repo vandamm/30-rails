@@ -1,7 +1,7 @@
 .die {
   width: 50px;
   height: 50px;
-  border: 2px solid;
+  border: 2px solid #000;
   border-radius: 5px;
   line-height: 50px;
   font-size: 20px;
@@ -13,4 +13,27 @@
 }
 .dice-group > div {
   margin-right: 10px;
+}
+.die.track {
+  color: transparent;
+}
+
+/* FIXME: Remove duplication of track tile descriptions */
+.track.die-face-1 {
+  background-image: url(/images/die-1.png);
+}
+.track.die-face-2 {
+  background-image: url(/images/die-2.png);
+}
+.track.die-face-3 {
+  background-image: url(/images/die-3.png);
+}
+.track.die-face-4 {
+  background-image: url(/images/die-4.png);
+}
+.track.die-face-5 {
+  background-image: url(/images/die-5.png);
+}
+.track.die-face-6 {
+  background-image: url(/images/die-6.png);
 }

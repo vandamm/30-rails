@@ -11,7 +11,7 @@ function App() {
 
   const min = 1;
   const max = 6;
-  const dice = [{ value: selected }, { value: tile }];
+  const dice = [{ value: selected }, { value: tile, css: "track" }];
 
   return (
     <div className="App">

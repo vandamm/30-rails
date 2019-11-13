@@ -2,10 +2,13 @@ import React from "react";
 import "./Dice.css";
 
 function Die(props) {
-  const { value, onClick } = props;
+  const { value, onClick, css = "" } = props;
 
   return (
-    <div className={["die", `die-face-${value}`].join(" ")} onClick={onClick}>
+    <div
+      className={[css, "die", `die-face-${value}`].join(" ")}
+      onClick={onClick}
+    >
       {value}
     </div>
   );
