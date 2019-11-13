@@ -42,7 +42,13 @@ function App() {
   function rollDice() {
     setSelected(getRollResult(min, max));
     setTile(getRollResult(min, max));
-    setRows(mapBoard(rows, ({ updated, ...cell }) => cell));
+    setRows(
+      mapBoard(rows, ({ updated, ...cell }) => ({
+        ...cell,
+        // Set "occupied" flag so this cell cannot be changed any more
+        ...(updated && { isOccupied: true })
+      }))
+    );
   }
 }
 
