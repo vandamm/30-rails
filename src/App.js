@@ -5,12 +5,12 @@ import Dice, { getRollResult } from "./Dice";
 import "./App.css";
 
 function App() {
-  const [rows, setRows] = useState(initRows(6, 6));
+  const [rows, setRows] = useState(initBoard());
   const [selected, setSelected] = useState();
   const [tile, setTile] = useState();
 
-  const min = 0;
-  const max = 5;
+  const min = 1;
+  const max = 6;
   const dice = [{ value: selected }, { value: tile }];
 
   return (
