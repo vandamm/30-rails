@@ -13,9 +13,16 @@ export default function Cell(props) {
 
   return (
     <div className={classes.join(" ")} onClick={onClick}>
-      {cell.station ? <div className="circle">{cell.station}</div> : cell.value}
+      {getContent(cell)}
     </div>
   );
+}
+
+function getContent(cell) {
+  if (cell.station) return <div className="circle">{cell.station}</div>;
+  if (cell.type === "MOUNTAIN") return "⛰";
+  if (cell.type === "MINE") return "⚒️";
+  return cell.value;
 }
 
 function cellClass({ type = "" }) {

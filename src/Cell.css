@@ -18,6 +18,14 @@
   align-items: center;
   justify-content: center;
 }
+.cell.mountain {
+  font-size: 40px;
+  line-height: 40px;
+}
+.cell.mine {
+  font-size: 30px;
+  line-height: 45px;
+}
 .station .circle {
   width: 30px;
   height: 30px;
