@@ -2,18 +2,28 @@ import React from "react";
 import "./Cell.css";
 
 export default function Cell(props) {
-  const { value, onClick, selected } = props;
+  const { value, onClick, selected, station } = props;
 
-  const hasValue = value === undefined;
+  const noValue = value === undefined;
   const isActive =
     (selected === props.x || selected === props.y) &&
-    (hasValue || props.updated);
+    (noValue || props.updated);
 
-  const classes = ["cell", isActive ? "selected" : "", hasValue ? "" : "empty"];
+  const classes = [
+    "cell",
+    isActive ? "selected" : "",
+    noValue ? "empty" : "",
+    props.isBorder ? "border" : "",
+    cellClass(props)
+  ].filter(s => s);
 
   return (
     <div className={classes.join(" ")} onClick={onClick}>
-      {value}
+      {station ? <div className="circle">{station}</div> : value}
     </div>
   );
+}
+
+function cellClass({ type = "" }) {
+  return type.toLowerCase();
 }

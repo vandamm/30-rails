@@ -5,8 +5,24 @@
   border: 1px solid;
 }
 .selected {
-  background-color: #ccc;
+  background-color: rgb(223, 222, 222);
 }
 .selected.empty {
   cursor: pointer;
+}
+.border {
+  background-color: rgb(185, 184, 184);
+}
+.station {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.station .circle {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-weight: 600;
+  border-radius: 30px;
+  border: 2px solid;
 }
