@@ -21,13 +21,7 @@ function App() {
   );
 
   function updateCell({ x, y }) {
-    const clicked = rows[x][y];
-    if (
-      (selected !== x && selected !== y) ||
-      clicked.value !== undefined ||
-      clicked.isOccupied
-    )
-      return;
+    if ((selected !== x && selected !== y) || rows[x][y].isOccupied) return;
 
     setRows(
       mapBoard(rows, cell => {
