@@ -4,6 +4,15 @@ import Dice, { getRollResult } from "./Dice";
 
 import "./App.css";
 
+const TILES = {
+  1: { maxRotation: 270 },
+  2: { maxRotation: 0 },
+  3: { maxRotation: 90 },
+  4: { maxRotation: 90 },
+  5: { maxRotation: 270 },
+  6: { maxRotation: 270, canFlip: true }
+};
+
 function App() {
   const [rows, setRows] = useState(initBoard());
   const [selected, setSelected] = useState();
@@ -25,18 +34,43 @@ function App() {
 
     setRows(
       mapBoard(rows, cell => {
-        if (selected !== cell.x && selected !== cell.y) return cell;
+        if (cell.x !== x || cell.y !== y)
+          return cell.updated ? clean(cell) : cell;
 
-        if (cell.x === x && cell.y === y)
-          return { ...cell, value: tile, updated: true };
+        if (!cell.updated) {
+          // Don't reset rotation/flip if placing same tile elsewhere
+          const { rotation, flip } = findPrevious(rows);
 
-        if (!cell.updated) return cell;
+          return { ...cell, value: tile, updated: true, rotation, flip };
+        }
 
-        const { value, updated, ...rest } = cell;
+        const { maxRotation, canFlip } = TILES[tile];
 
-        return rest;
+        let flip = cell.flip;
+        let rotation = (cell.rotation || 0) + 90;
+
+        if (rotation > maxRotation) {
+          rotation = 0;
+          flip = canFlip ? !flip : false;
+        }
+
+        console.log(tile, cell.rotation, rotation, maxRotation, flip);
+
+        return { ...cell, rotation, flip };
       })
     );
+  }
+
+  function findPrevious(rows) {
+    return rows.reduce(
+      (result, row) =>
+        row.reduce((result, cell) => (cell.updated ? cell : result), result),
+      {}
+    );
+  }
+
+  function clean({ value, rotation, flip, updated, ...cell }) {
+    return cell;
   }
 
   function rollDice() {
@@ -76,7 +110,15 @@ function setupBoard(row, x) {
     const isOccupied = isBorder || station > 0 || mountain || mine;
     const type = getType(cell);
 
-    return { x, y, isOccupied, isBorder, type, ...(station && { station }) };
+    return {
+      x,
+      y,
+      isOccupied,
+      isBorder,
+      type,
+      rotation: 0,
+      ...(station && { station })
+    };
   });
 }
 

@@ -9,6 +9,8 @@ export default function Cell(props) {
     isActive ? "selected" : "",
     cell.isBorder ? "border" : "",
     cell.value ? `track track-${cell.value}` : "",
+    cell.rotation ? `rotated-${cell.rotation}` : "",
+    cell.flip ? "flipped" : "",
     cellClass(cell)
   ].filter(s => s);
 

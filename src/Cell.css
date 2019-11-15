@@ -3,6 +3,7 @@
   height: 48px;
   line-height: 50px;
   border: 1px solid;
+  text-align: center;
 }
 .selected {
   background-color: rgb(223, 222, 222);
@@ -34,6 +35,42 @@
   border-radius: 30px;
   border: 2px solid;
 }
+
+.cell.rotated-90 {
+  transform: rotate(90deg);
+}
+.cell.rotated-180 {
+  transform: rotate(180deg);
+}
+.cell.rotated-270 {
+  transform: rotate(270deg);
+}
+/* .cell.rotated-360 {
+  transform: rotate(0deg) scaleX(-1);
+}
+.cell.rotated-450 {
+  transform: rotate(90deg) scaleX(-1);
+}
+.cell.rotated-540 {
+  transform: rotate(180deg) scaleX(-1);
+}
+.cell.rotated-630 {
+  transform: rotate(270deg) scaleX(-1);
+} */
+
+.cell.flipped.rotated-0 {
+  transform: rotate(0deg) scaleX(-1);
+}
+.cell.flipped.rotated-90 {
+  transform: rotate(90deg) scaleX(-1);
+}
+.cell.flipped.rotated-180 {
+  transform: rotate(180deg) scaleX(-1);
+}
+.cell.flipped.rotated-270 {
+  transform: rotate(270deg) scaleX(-1);
+}
+
 .track {
   background-position: center;
   background-size: contain;
