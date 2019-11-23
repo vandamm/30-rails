@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import Board, { mapBoard } from "./Board";
 import Dice, { getRollResult } from "./Dice";
+import { maxRotation, canFlip } from "./logic/tile";
 
 import "./App.css";
-
-const TILES = {
-  1: { maxRotation: 270 },
-  2: { maxRotation: 0 },
-  3: { maxRotation: 90 },
-  4: { maxRotation: 90 },
-  5: { maxRotation: 270 },
-  6: { maxRotation: 270, canFlip: true }
-};
 
 function App() {
   const [rows, setRows] = useState(initBoard());
@@ -44,17 +36,15 @@ function App() {
           return { ...cell, value: tile, updated: true, rotation, flip };
         }
 
-        const { maxRotation, canFlip } = TILES[tile];
-
         let flip = cell.flip;
         let rotation = (cell.rotation || 0) + 90;
 
-        if (rotation > maxRotation) {
+        if (rotation > maxRotation(tile)) {
           rotation = 0;
-          flip = canFlip ? !flip : false;
+          flip = canFlip(tile) ? !flip : false;
         }
 
-        console.log(tile, cell.rotation, rotation, maxRotation, flip);
+        console.log(tile, cell.rotation, rotation, maxRotation(tile), flip);
 
         return { ...cell, rotation, flip };
       })
