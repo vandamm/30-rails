@@ -7,23 +7,25 @@ import "./App.css";
 
 function App() {
   const [rows, setRows] = useState(initBoard());
-  const [selected, setSelected] = useState();
-  const [tile, setTile] = useState();
+  const [positionDie, setPositionDie] = useState();
+  const [tileDie, setTileDie] = useState();
   const [placed, setPlaced] = useState(true);
+  const [round, setRound] = useState(0);
 
   const min = 1;
   const max = 6;
-  const dice = [{ value: selected }, { value: tile, css: "track" }];
+  const dice = [{ value: positionDie }, { value: tileDie, css: "track" }];
 
   return (
     <div className="App">
-      <Board {...{ rows, selected, updateCell }} />
+      <Board {...{ rows, selected: positionDie, updateCell }} />
       <Dice dice={dice} roll={rollDice} />
     </div>
   );
 
   function updateCell({ x, y }) {
-    if ((selected !== x && selected !== y) || rows[x][y].isOccupied) return;
+    if ((positionDie !== x && positionDie !== y) || rows[x][y].isOccupied)
+      return;
 
     setPlaced(true);
 
@@ -36,18 +38,24 @@ function App() {
           // Don't reset rotation/flip if placing same tile elsewhere
           const { rotation, flip } = findPrevious(rows);
 
-          return { ...cell, value: tile, updated: true, rotation, flip };
+          return { ...cell, value: tileDie, updated: true, rotation, flip };
         }
 
         let flip = cell.flip;
         let rotation = (cell.rotation || 0) + 90;
 
-        if (rotation > maxRotation(tile)) {
+        if (rotation > maxRotation(tileDie)) {
           rotation = 0;
-          flip = canFlip(tile) ? !flip : false;
+          flip = canFlip(tileDie) ? !flip : false;
         }
 
-        console.log(tile, cell.rotation, rotation, maxRotation(tile), flip);
+        console.log(
+          tileDie,
+          cell.rotation,
+          rotation,
+          maxRotation(tileDie),
+          flip
+        );
 
         return { ...cell, rotation, flip };
       })
@@ -69,8 +77,8 @@ function App() {
   function rollDice() {
     if (!placed) return;
 
-    setSelected(getRollResult(min, max));
-    setTile(getRollResult(min, max));
+    setPositionDie(getRollResult(min, max));
+    setTileDie(getRollResult(min, max));
     setPlaced(false);
     setRows(
       mapBoard(rows, ({ updated, ...cell }) => ({
