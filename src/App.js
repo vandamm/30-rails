@@ -20,6 +20,7 @@ function App() {
     <div className="App">
       <Board {...{ rows, selected: positionDie, updateCell }} />
       <Dice dice={dice} roll={rollDice} />
+      {round > 0 && <div className="round">Round: {round}</div>}
     </div>
   );
 
@@ -80,6 +81,7 @@ function App() {
     setPositionDie(getRollResult(min, max));
     setTileDie(getRollResult(min, max));
     setPlaced(false);
+    setRound(round => round + 1);
     setRows(
       mapBoard(rows, ({ updated, ...cell }) => ({
         ...cell,
