@@ -9,6 +9,7 @@ function App() {
   const [rows, setRows] = useState(initBoard());
   const [selected, setSelected] = useState();
   const [tile, setTile] = useState();
+  const [placed, setPlaced] = useState(true);
 
   const min = 1;
   const max = 6;
@@ -23,6 +24,8 @@ function App() {
 
   function updateCell({ x, y }) {
     if ((selected !== x && selected !== y) || rows[x][y].isOccupied) return;
+
+    setPlaced(true);
 
     setRows(
       mapBoard(rows, cell => {
@@ -64,8 +67,11 @@ function App() {
   }
 
   function rollDice() {
+    if (!placed) return;
+
     setSelected(getRollResult(min, max));
     setTile(getRollResult(min, max));
+    setPlaced(false);
     setRows(
       mapBoard(rows, ({ updated, ...cell }) => ({
         ...cell,
