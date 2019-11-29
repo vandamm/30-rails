@@ -37,7 +37,7 @@ export default class Node {
    * @param {Node} target
    * @returns {Node}
    */
-  mergeInto(target) {
+  replaceWith(target) {
     for (const node of this.connections) {
       this.unlinkFrom(node);
       target.linkWith(node);

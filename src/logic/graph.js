@@ -48,5 +48,5 @@ function merge(from, to) {
   if (!from) return to;
   if (!to) return from;
 
-  return from.mergeInto(to);
+  return from.replaceWith(to);
 }

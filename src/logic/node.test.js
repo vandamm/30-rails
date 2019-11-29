@@ -26,8 +26,10 @@ it("replaces all connections on merge", () => {
   const b = new Node();
   const c = new Node();
 
+  // a-b
   a.linkWith(b);
-  a.mergeInto(c);
+  // c-b
+  a.replaceWith(c);
 
   expect(a.connections).not.toContain(b);
   expect(b.connections).not.toContain(a);
@@ -47,7 +49,7 @@ it("handles complex connections replacement", () => {
   b1.linkWith(b2);
 
   // a1-a2-b2
-  b1.mergeInto(a2);
+  b1.replaceWith(a2);
 
   expect(b2.connections).not.toContain(b1);
   expect(b1.connections).not.toContain(b2);
