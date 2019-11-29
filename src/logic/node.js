@@ -1,5 +1,7 @@
 export default class Node {
-  constructor(id) {
+  constructor(type, id) {
+    this.type = type || "TILE";
+
     if (id) this.id = id;
 
     this.connections = new Set();

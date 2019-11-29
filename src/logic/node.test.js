@@ -1,7 +1,14 @@
 import Node from "./node";
 
-it("retains index", () => {
-  expect(new Node(1).id).toEqual(1);
+it("gets type TILE by default", () => {
+  expect(new Node().type).toEqual("TILE");
+});
+
+it("can accept type and id", () => {
+  const node = new Node("STATION", 3);
+
+  expect(node.type).toEqual("STATION");
+  expect(node.id).toEqual(3);
 });
 
 it("connects to other node", () => {
