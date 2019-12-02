@@ -20,13 +20,13 @@ it("replaces nodes in overlapping positions", () => {
 });
 
 it("merges connections from one node to another", () => {
-  const first = matrix([1, 2], [2, 1]);
-  const second = matrix([1, 0], [1, 2]);
+  const a = matrix([1, 2], [2, 1]);
+  const b = matrix([1, 0], [1, 2]);
 
-  first[1][2].linkWith(first[2][1]);
-  second[1][0].linkWith(second[1][2]);
+  a[1][2].linkWith(a[2][1]);
+  b[1][0].linkWith(b[1][2]);
 
-  const graph = buildGraph([[first, second]]);
+  const graph = buildGraph([[a, b]]);
 
   expect(graph.length).toEqual(3);
   expect(graph[0].connections).toContain(graph[1]);
