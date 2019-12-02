@@ -1,5 +1,5 @@
 import Node from "./node";
-import { buildGraph } from "./graph";
+import { buildGraph, findRoutes } from "./graph";
 
 it("flattens all nodes into single graph", () => {
   const graph = buildGraph([
@@ -31,6 +31,29 @@ it("merges connections from one node to another", () => {
   expect(graph.length).toEqual(3);
   expect(graph[0].connections).toContain(graph[1]);
   expect(graph[0].connections).toContain(graph[2]);
+});
+
+it("finds a route between graph nodes", () => {
+  const a = matrix([1, 0], [1, 2]);
+  const b = matrix([1, 0], [1, 2]);
+  const c = matrix([1, 0], [1, 2]);
+
+  a[1][0].linkWith(a[1][2]);
+  b[1][0].linkWith(b[1][2]);
+  c[1][0].linkWith(c[1][2]);
+
+  // We can drop reference to graph because we know the nodes for search
+  buildGraph([[a, b, c]]);
+
+  const start = a[1][0];
+  const end = c[1][2];
+
+  const routes = findRoutes(start, end);
+
+  expect(routes).toHaveLength(1);
+  expect(routes[0]).toEqual(
+    expect.arrayContaining([start, a[1][2], b[1][2], end])
+  );
 });
 
 /**

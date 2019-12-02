@@ -50,3 +50,38 @@ function merge(from, to) {
 
   return from.replaceWith(to);
 }
+
+/**
+ * Search for all routes between nodes from and to
+ * Expects them to be connected
+ *
+ * @typedef {import("./node").default} Node
+ *
+ * @param {Node} from
+ * @param {Node} to
+ *
+ * @returns {Node[][]}
+ */
+export function findRoutes(from, to) {
+  return search(from, to);
+
+  function search(from, to, route = [from], visited = [from]) {
+    const routes = [];
+
+    for (const node of from.connections) {
+      if (visited.includes(node)) continue;
+
+      if (node === to) {
+        visited.push(to);
+
+        routes.push([...route, node]);
+      } else {
+        const result = search(node, to, [...route, node], [...visited, node]);
+
+        if (result) routes.push(...result);
+      }
+    }
+
+    return routes;
+  }
+}
