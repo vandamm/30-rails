@@ -34,19 +34,14 @@ it("merges connections from one node to another", () => {
 });
 
 it("finds a route between graph nodes", () => {
-  const a = matrix([1, 0], [1, 2]);
-  const b = matrix([1, 0], [1, 2]);
-  const c = matrix([1, 0], [1, 2]);
+  const a = matrix("A", [1, 0], [1, 2]);
+  const b = matrix("B", [1, 0], [1, 2]);
+  const c = matrix("C", [1, 0], [1, 2]);
 
-  a[1][0].linkWith(a[1][2]);
-  b[1][0].linkWith(b[1][2]);
-  c[1][0].linkWith(c[1][2]);
+  const graph = buildGraph([[a, b, c]]);
 
-  // We can drop reference to graph because we know the nodes for search
-  buildGraph([[a, b, c]]);
-
-  const start = a[1][0];
-  const end = c[1][2];
+  const start = graph.find(n => n.is({ id: "A0" }));
+  const end = graph.find(n => n.is({ id: "C1" }));
 
   const routes = findRoutes(start, end);
 

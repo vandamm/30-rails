@@ -1,14 +1,28 @@
 import Node from "./node";
 
 it("gets type TILE by default", () => {
-  expect(new Node().type).toEqual("TILE");
+  expect(new Node().identity).toEqual([{ type: "TILE" }]);
 });
 
 it("can accept type and id", () => {
   const node = new Node("STATION", 3);
 
-  expect(node.type).toEqual("STATION");
-  expect(node.id).toEqual(3);
+  expect(node.identity).toEqual([{ type: "STATION", id: 3 }]);
+});
+
+it("identifies as type", () => {
+  const node = new Node("STATION", 3);
+
+  expect(node.is({ type: "STATION" })).toEqual(true);
+  expect(node.is({ type: "TILE" })).toEqual(false);
+});
+
+it("identifies as type and id", () => {
+  const node = new Node("STATION", 3);
+
+  expect(node.is({ type: "STATION", id: 3 })).toEqual(true);
+  expect(node.is({ type: "STATION", id: 2 })).toEqual(false);
+  expect(node.is({ type: "TILE", id: 2 })).toEqual(false);
 });
 
 it("connects to other node", () => {
@@ -56,4 +70,15 @@ it("handles complex connections replacement", () => {
 
   expect(a2.connections).toContain(b2);
   expect(b2.connections).toContain(a2);
+});
+
+it("Retains identitiy on merge", () => {
+  const a = new Node("STATION", 1);
+  const b = new Node("MOUNTAIN");
+
+  a.replaceWith(b);
+
+  expect(b.identity).toEqual(
+    expect.arrayContaining([{ type: "STATION", id: 1 }, { type: "MOUNTAIN" }])
+  );
 });

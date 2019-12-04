@@ -1,10 +1,39 @@
 export default class Node {
-  constructor(type, id) {
-    this.type = type || "TILE";
-
-    if (id) this.id = id;
-
+  /**
+   * Create a new node
+   *
+   * @param {String} [type]
+   * @param {Number} [id]
+   */
+  constructor(type = "TILE", id) {
+    this.identity = [{ id, type }];
     this.connections = new Set();
+  }
+
+  /**
+   * Check if this node has identity of specified type (and maybe id)
+   * This is needed to find a node with specified type/id in graph
+   *
+   * @param {Object} matcher
+   * @returns {Boolean}
+   */
+  is({ type, id }) {
+    const comparator = i =>
+      (type ? i.type === type : true) && (id ? i.id === id : true);
+
+    return this.identity.find(comparator) !== undefined;
+  }
+
+  /**
+   * Add provided identities to identity of this node
+   *
+   * @param {Object[]} identities
+   * @returns {Node}
+   */
+  identifyAs(identities) {
+    this.identity.push(...identities);
+
+    return this;
   }
 
   /**
@@ -43,6 +72,6 @@ export default class Node {
       target.linkWith(node);
     }
 
-    return target;
+    return target.identifyAs(this.identity);
   }
 }
