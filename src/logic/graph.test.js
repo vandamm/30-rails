@@ -58,13 +58,21 @@ it("finds a route between graph nodes", () => {
 
 /**
  * Create matrix with nodes at specified positions
+ *
+ * @param {String} [name]
  * @param  {...Number[]} nodes
  * @returns {Node[][]}
  */
-function matrix(...nodes) {
+function matrix(name, ...nodes) {
+  if (Array.isArray(name)) {
+    nodes = [name, ...nodes];
+    name = "";
+  }
+
   const matrix = [new Array(3), new Array(3), new Array(3)];
 
-  for (const [x, y] of nodes) matrix[x][y] = new Node();
+  let i = 0;
+  for (const [x, y] of nodes) matrix[x][y] = new Node(null, `${name}${i++}`);
 
   return matrix;
 }
