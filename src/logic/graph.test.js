@@ -48,6 +48,39 @@ it("finds a route between graph nodes", () => {
   );
 });
 
+/*       a    b    c
+  -->  * -- * -\- * \
+  Start          *    *  <--- Finish
+                 \ * /
+                d    e
+  */
+it("finds all routes between graph nodes", () => {
+  const a = link(matrix("A", [1, 0], [1, 2]));
+  const b = link(
+    matrix("B", [1, 0], [1, 2], [2, 1]),
+    [[1, 0], [1, 2]],
+    [[1, 0], [2, 1]]
+  );
+  const c = link(matrix("C", [1, 0], [2, 1]));
+  const d = link(matrix("D", [0, 1], [1, 2]));
+  const e = link(matrix("E", [0, 1], [1, 0]));
+
+  const graph = buildGraph([[a, b, c], [null, d, e]]);
+
+  const start = graph.find(n => n.is({ id: "A0" }));
+  const end = graph.find(n => n.is({ id: "E0" }));
+
+  const routes = findRoutes(start, end);
+
+  expect(routes).toHaveLength(2);
+  expect(routes[0]).toEqual(
+    expect.arrayContaining([start, a[1][2], b[1][2], end])
+  );
+  expect(routes[0]).toEqual(
+    expect.arrayContaining([start, a[1][2], b[1][2], end])
+  );
+});
+
 /**
  * Create matrix with nodes at specified positions
  *
