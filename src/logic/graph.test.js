@@ -20,11 +20,8 @@ it("replaces nodes in overlapping positions", () => {
 });
 
 it("merges connections from one node to another", () => {
-  const a = matrix([1, 2], [2, 1]);
-  const b = matrix([1, 0], [1, 2]);
-
-  a[1][2].linkWith(a[2][1]);
-  b[1][0].linkWith(b[1][2]);
+  const b = link(matrix([1, 0], [1, 2]));
+  const a = link(matrix([1, 2], [2, 1]));
 
   const graph = buildGraph([[a, b]]);
 
@@ -34,9 +31,9 @@ it("merges connections from one node to another", () => {
 });
 
 it("finds a route between graph nodes", () => {
-  const a = matrix("A", [1, 0], [1, 2]);
-  const b = matrix("B", [1, 0], [1, 2]);
-  const c = matrix("C", [1, 0], [1, 2]);
+  const a = link(matrix("A", [1, 0], [1, 2]));
+  const b = link(matrix("B", [1, 0], [1, 2]));
+  const c = link(matrix("C", [1, 0], [1, 2]));
 
   const graph = buildGraph([[a, b, c]]);
 
@@ -68,6 +65,36 @@ function matrix(name, ...nodes) {
 
   let i = 0;
   for (const [x, y] of nodes) matrix[x][y] = new Node(null, `${name}${i++}`);
+
+  return matrix;
+}
+
+/**
+ * Create links between nodes in a matrix
+ * If no links are provided, link all matrix nodes to each other
+ *
+ * @param {Node[][]} matrix
+ * @param  {...Number[][]} links Each link is a tuple of coord arrays [[], []]
+ */
+function link(matrix, ...links) {
+  if (links.length) {
+    for (const [left, right] of links)
+      matrix[left[0]][left[1]].linkWith(matrix[right[0]][right[1]]);
+  } else {
+    const nodes = matrix.reduce(
+      (result, row) => [
+        ...result,
+        ...row.reduce((result, node) => (node ? [...result, node] : result), [])
+      ],
+      []
+    );
+
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+
+      for (let j = i + 1; j < nodes.length; j++) node.linkWith(nodes[j]);
+    }
+  }
 
   return matrix;
 }
