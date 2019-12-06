@@ -1,5 +1,5 @@
 import Node from "./node";
-import { buildGraph, findRoutes } from "./graph";
+import { buildGraph, findNode, findRoutes } from "./graph";
 
 it("flattens all nodes into single graph", () => {
   const graph = buildGraph([
@@ -28,6 +28,15 @@ it("merges connections from one node to another", () => {
   expect(graph.length).toEqual(3);
   expect(graph[0].connections).toContain(graph[1]);
   expect(graph[0].connections).toContain(graph[2]);
+});
+
+it("finds node in graph by identity", () => {
+  const station = new Node("STATION", 9);
+  const mine = new Node("MINE");
+  const graph = [station, mine];
+
+  expect(findNode(graph, { type: "MINE" })).toEqual(mine);
+  expect(findNode(graph, { type: "STATION", id: 9 })).toEqual(station);
 });
 
 it("finds a route between graph nodes", () => {

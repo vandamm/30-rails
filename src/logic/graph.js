@@ -85,3 +85,7 @@ export function findRoutes(from, to) {
     return routes;
   }
 }
+
+export function findNode(graph, identity) {
+  return graph.find(node => node.is(identity));
+}
