@@ -35,6 +35,14 @@ it("connects to other node", () => {
   expect(b.connections).toContain(a);
 });
 
+it("should not connect to self", () => {
+  const a = new Node();
+
+  a.linkWith(a);
+
+  expect(a.connections).not.toContain(a);
+});
+
 it("replaces all connections on merge", () => {
   const a = new Node();
   const b = new Node();
@@ -81,4 +89,12 @@ it("Retains identitiy on merge", () => {
   expect(b.identity).toEqual(
     expect.arrayContaining([{ type: "STATION", id: 1 }, { type: "MOUNTAIN" }])
   );
+});
+
+it("should not merge with self", () => {
+  const a = new Node();
+
+  expect(() => {
+    a.replaceWith(a);
+  }).not.toThrow();
 });

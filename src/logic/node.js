@@ -43,6 +43,8 @@ export default class Node {
    * @returns {Node}
    */
   linkWith(node) {
+    if (node === this) return this;
+
     this.connections.add(node);
     node.connections.add(this);
 
@@ -56,6 +58,8 @@ export default class Node {
    * @returns {Node}
    */
   unlinkFrom(node) {
+    if (node === this) return this;
+
     this.connections.delete(node);
     node.connections.delete(this);
   }
@@ -67,6 +71,8 @@ export default class Node {
    * @returns {Node}
    */
   replaceWith(target) {
+    if (target === this) return this;
+
     for (const node of this.connections) {
       this.unlinkFrom(node);
       target.linkWith(node);
