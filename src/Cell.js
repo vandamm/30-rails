@@ -3,30 +3,36 @@ import "./Cell.css";
 
 export default function Cell(props) {
   const { cell, onClick, isActive } = props;
-
-  const classes = [
-    "cell",
-    isActive ? "selected" : "",
-    cell.isBorder ? "border" : "",
-    cell.value ? `track track-${cell.value}` : "",
-    cell.rotation ? `rotated-${cell.rotation}` : "",
-    cell.flip ? "flipped" : "",
-    cellClass(cell)
-  ].filter(s => s);
+  const classes = getClasses({ ...cell, isActive });
 
   return (
-    <div className={classes.join(" ")} onClick={() => onClick(cell)}>
+    <div className={classes} onClick={() => onClick(cell)}>
       {getContent(cell)}
     </div>
   );
 }
 
 function getContent(cell) {
-  if (cell.station) return <div className="circle">{cell.station}</div>;
-  if (cell.type === "MOUNTAIN") return "⛰";
-  if (cell.type === "MINE") return "⚒️";
+  switch (cell.type) {
+    case "STATION":
+      return <div className="circle">{cell.value}</div>;
+    case "MOUNTAIN":
+      return "⛰";
+    case "MINE":
+      return "⚒️";
+  }
 }
 
-function cellClass({ type = "" }) {
-  return type.toLowerCase();
+function getClasses(cell) {
+  return [
+    "cell",
+    cell.isActive && "selected",
+    cell.isBorder && "border",
+    cell.rotation && `rotated-${cell.rotation}`,
+    cell.flip && "flipped",
+    cell.type === "TILE" && `track track-${cell.value}`,
+    cell.type && cell.type.toLowerCase()
+  ]
+    .filter(s => s)
+    .join(" ");
 }
