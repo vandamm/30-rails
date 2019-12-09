@@ -1,9 +1,20 @@
 import React from "react";
+import classNames from "classnames";
 import "./Cell.css";
 
 export default function Cell(props) {
-  const { cell, onClick, isActive } = props;
-  const classes = getClasses({ ...cell, isActive });
+  const { cell, onClick } = props;
+  const classes = classNames([
+    "cell",
+    cell.type && cell.type.toLowerCase(),
+    {
+      selected: props.isActive,
+      border: cell.isBorder,
+      flipped: cell.flip,
+      [`rotated-${cell.rotation}`]: cell.rotation,
+      [`track track-${cell.value}`]: cell.type === "TILE"
+    }
+  ]);
 
   return (
     <div className={classes} onClick={() => onClick(cell)}>
@@ -27,17 +38,4 @@ function getContent(cell) {
     default:
       return "";
   }
-}
-
-function getClasses(cell) {
-  return [
-    "cell",
-    cell.isActive && "selected",
-    cell.isBorder && "border",
-    cell.rotation && `rotated-${cell.rotation}`,
-    cell.flip && "flipped",
-    cell.type === "TILE" && `track track-${cell.value}`
-  ]
-    .filter(s => s)
-    .join(" ");
 }
