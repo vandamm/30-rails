@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Board, { mapBoard } from "./Board";
 import Dice, { getRollResult } from "./Dice";
+import ScoreTable from "./ScoreTable";
 import { maxRotation, canFlip } from "./logic/tile";
 
 import "./App.css";
@@ -24,6 +25,7 @@ function App() {
           {round > 0 ? `Round: ${round}` : "Press the dice to start"}
         </div>
         <Dice dice={dice} roll={rollDice} />
+        <ScoreTable rows={rows} />
       </div>
     </div>
   );

@@ -1,0 +1,21 @@
+.score-table table {
+  background: white;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.score-table th.star {
+  font-size: 25px;
+}
+
+.score-table td {
+  min-width: 18px;
+  padding: 6px;
+  border: 1px solid #000;
+  text-align: center;
+}
+
+.score-table td.inactive {
+  color: #aeaeae;
+  user-select: none;
+}
