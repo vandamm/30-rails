@@ -19,3 +19,7 @@
   color: #aeaeae;
   user-select: none;
 }
+
+.score-table td.total {
+  font-weight: bold;
+}

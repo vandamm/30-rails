@@ -48,7 +48,7 @@ export default function ScoreTable(props) {
               <td className={row.total ? "" : "inactive"}>{row.routeBonus}</td>
               <td>{row.lengthBonus}</td>
               <td>{row.squareBonus}</td>
-              <td>{row.total}</td>
+              <td className="total">{row.total}</td>
             </tr>
           ))}
         </tbody>
