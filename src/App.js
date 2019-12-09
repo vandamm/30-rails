@@ -75,7 +75,7 @@ function App() {
     );
   }
 
-  function clean({ value, rotation, flip, updated, ...cell }) {
+  function clean({ value, type, rotation, flip, updated, ...cell }) {
     return cell;
   }
 
