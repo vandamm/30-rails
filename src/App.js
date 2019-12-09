@@ -127,7 +127,7 @@ function setupBoard(row, x) {
       isBorder,
       type,
       rotation: 0,
-      ...(station && { station })
+      ...(station && { value: station })
     };
   });
 }
