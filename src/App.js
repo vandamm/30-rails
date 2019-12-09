@@ -19,11 +19,11 @@ function App() {
   return (
     <div className="App hbox">
       <Board {...{ rows, selected: positionDie, updateCell }} />
-      <div className="vbox">
-        <div>
-          <Dice dice={dice} roll={rollDice} />
-          {round > 0 && <div className="round">Round: {round}</div>}
+      <div className="vbox sidebar">
+        <div className="round">
+          {round > 0 ? `Round: ${round}` : "Press the dice to start"}
         </div>
+        <Dice dice={dice} roll={rollDice} />
       </div>
     </div>
   );

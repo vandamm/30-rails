@@ -16,6 +16,6 @@
   flex-direction: column;
 }
 
-.round {
-  color: white;
+.sidebar {
+  align-items: center;
 }
