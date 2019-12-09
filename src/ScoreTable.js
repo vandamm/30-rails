@@ -52,6 +52,14 @@ export default function ScoreTable(props) {
             </tr>
           ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan="4">Total</td>
+            <td className="total">
+              {rows.reduce((sum, value = 0) => sum + value, 0)}
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );
