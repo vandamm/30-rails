@@ -13,15 +13,17 @@ export default function Board(props) {
 
   return (
     <table className="board">
-      {rows.map((row, x) => (
-        <tr key={x}>
-          {row.map(cell => (
-            <td key={`${cell.x}-${cell.y}`}>
-              <Cell {...{ cell, onClick, isActive: isActive(cell) }} />
-            </td>
-          ))}
-        </tr>
-      ))}
+      <tbody>
+        {rows.map((row, x) => (
+          <tr key={x}>
+            {row.map(cell => (
+              <td key={`${cell.x}-${cell.y}`}>
+                <Cell {...{ cell, onClick, isActive: isActive(cell) }} />
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 }
