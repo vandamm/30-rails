@@ -12,14 +12,17 @@ export default function Board(props) {
     !cell.isOccupied;
 
   return (
-    <div className="board">
-      {mapBoard(rows, cell => (
-        <Cell
-          key={`${cell.x}-${cell.y}`}
-          {...{ cell, onClick, isActive: isActive(cell) }}
-        />
+    <table className="board">
+      {rows.map((row, x) => (
+        <tr key={x}>
+          {row.map(cell => (
+            <td key={`${cell.x}-${cell.y}`}>
+              <Cell {...{ cell, onClick, isActive: isActive(cell) }} />
+            </td>
+          ))}
+        </tr>
       ))}
-    </div>
+    </table>
   );
 }
 

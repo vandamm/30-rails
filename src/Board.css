@@ -1,7 +1,13 @@
 .board {
-  display: flex;
-  flex-wrap: wrap;
-  width: 400px;
   border: 1px solid;
+  border-collapse: collapse;
+
   margin-bottom: 20px;
+  background: white;
+}
+
+.board td {
+  border: 1px solid;
+  padding: 0;
+  margin: 0;
 }

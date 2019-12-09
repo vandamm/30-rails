@@ -17,10 +17,14 @@ function App() {
   const dice = [{ value: positionDie }, { value: tileDie, css: "track" }];
 
   return (
-    <div className="App">
+    <div className="App hbox">
       <Board {...{ rows, selected: positionDie, updateCell }} />
-      <Dice dice={dice} roll={rollDice} />
-      {round > 0 && <div className="round">Round: {round}</div>}
+      <div className="vbox">
+        <div>
+          <Dice dice={dice} roll={rollDice} />
+          {round > 0 && <div className="round">Round: {round}</div>}
+        </div>
+      </div>
     </div>
   );
 

@@ -2,6 +2,20 @@
   font-family: sans-serif;
 }
 
+.hbox,
+.vbox {
+  display: flex;
+}
+
+.hbox > *,
+.vbox > * {
+  margin: 10px;
+}
+
+.vbox {
+  flex-direction: column;
+}
+
 .round {
   color: white;
 }

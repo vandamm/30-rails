@@ -15,11 +15,17 @@ export default function Cell(props) {
 function getContent(cell) {
   switch (cell.type) {
     case "STATION":
-      return <div className="circle">{cell.value}</div>;
+      return (
+        <div className="station">
+          <div className="circle">{cell.value}</div>
+        </div>
+      );
     case "MOUNTAIN":
-      return "⛰";
+      return <div className="mountain">⛰</div>;
     case "MINE":
-      return "⚒️";
+      return <div className="mine">⚒️</div>;
+    default:
+      return "";
   }
 }
 
@@ -30,8 +36,7 @@ function getClasses(cell) {
     cell.isBorder && "border",
     cell.rotation && `rotated-${cell.rotation}`,
     cell.flip && "flipped",
-    cell.type === "TILE" && `track track-${cell.value}`,
-    cell.type && cell.type.toLowerCase()
+    cell.type === "TILE" && `track track-${cell.value}`
   ]
     .filter(s => s)
     .join(" ");
