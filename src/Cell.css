@@ -16,6 +16,13 @@
   align-items: center;
   justify-content: center;
 }
+.station .circle {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 30px;
+  border: 1px solid;
+}
 .cell .mountain {
   font-size: 40px;
   line-height: 40px;
@@ -24,15 +31,6 @@
   font-size: 30px;
   line-height: 45px;
 }
-.station .circle {
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  font-weight: 600;
-  border-radius: 30px;
-  border: 1px solid;
-}
-
 .cell.rotated-90 {
   transform: rotate(90deg);
 }
