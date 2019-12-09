@@ -31,7 +31,8 @@ export default class Node {
    * @returns {Node}
    */
   identifyAs(identities) {
-    this.identity.push(...identities);
+    for (const identity of identities)
+      if (!this.is(identity)) this.identity.push(identity);
 
     return this;
   }

@@ -98,3 +98,11 @@ it("should not merge with self", () => {
     a.replaceWith(a);
   }).not.toThrow();
 });
+
+it("does not get identity if already has it", () => {
+  const node = new Node("STATION", 1);
+
+  node.identifyAs([{ type: "STATION", id: 1 }, { type: "MOUNTAIN" }]);
+
+  expect(node.identity).toHaveLength(2);
+});
