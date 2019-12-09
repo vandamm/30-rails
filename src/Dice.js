@@ -6,10 +6,10 @@ function Die(props) {
 
   return (
     <div
-      className={[css, "die", `die-face-${value}`].join(" ")}
+      className={[css, "die", value ? `die-face-${value}` : ""].join(" ")}
       onClick={onClick}
     >
-      {value}
+      {value || "\u00a0"}
     </div>
   );
 }
