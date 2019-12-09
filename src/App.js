@@ -43,7 +43,14 @@ function App() {
           // Don't reset rotation/flip if placing same tile elsewhere
           const { rotation, flip } = findPrevious(rows);
 
-          return { ...cell, value: tileDie, updated: true, rotation, flip };
+          return {
+            ...cell,
+            value: tileDie,
+            type: "TILE",
+            updated: true,
+            rotation,
+            flip
+          };
         }
 
         let flip = cell.flip;
