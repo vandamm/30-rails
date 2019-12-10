@@ -126,27 +126,3 @@ function rotate90(matrix) {
 
   return result;
 }
-
-// TODO: Is this needed?
-export function merge({ from, into, x, y }) {
-  const offsetX = SIZE * x;
-  const offsetY = SIZE * y;
-  const result = new Array(offsetX + SIZE);
-
-  for (let i = 0; i < SIZE; i++) {
-    result[i] = new Array(offsetY + SIZE);
-
-    for (let j = 0; j < SIZE; j++) {
-      const x = i + offsetX;
-      const y = j + offsetY;
-      const destination = into[x][y];
-      const source = from[i][j];
-
-      if (!source) continue;
-
-      result[x][y] = destination ? source.mergeInto(destination) : source;
-    }
-  }
-
-  return origin;
-}
