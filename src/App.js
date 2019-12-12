@@ -31,9 +31,6 @@ function App() {
   );
 
   function updateCell({ x, y }) {
-    if ((positionDie !== x && positionDie !== y) || rows[x][y].isOccupied)
-      return;
-
     setPlaced(true);
 
     setRows(
@@ -41,37 +38,21 @@ function App() {
         if (cell.x !== x || cell.y !== y)
           return cell.updated ? clean(cell) : cell;
 
-        if (!cell.updated) {
-          // Don't reset rotation/flip if placing same tile elsewhere
-          const { rotation, flip } = findPrevious(rows);
+        // If it's same cell, rotate it
+        if (cell.updated) return rotate(cell);
 
-          return {
-            ...cell,
-            value: tileDie,
-            type: "TILE",
-            updated: true,
-            rotation,
-            flip
-          };
-        }
+        // Place selected tile elsewhere if another cell is clicked
+        // Don't reset rotation/flip if placing same tile elsewhere
+        const { rotation, flip } = findPrevious(rows);
 
-        let flip = cell.flip;
-        let rotation = (cell.rotation || 0) + 90;
-
-        if (rotation > maxRotation(tileDie)) {
-          rotation = 0;
-          flip = canFlip(tileDie) ? !flip : false;
-        }
-
-        console.log(
-          tileDie,
-          cell.rotation,
+        return {
+          ...cell,
+          value: tileDie,
+          type: "TILE",
+          updated: true,
           rotation,
-          maxRotation(tileDie),
           flip
-        );
-
-        return { ...cell, rotation, flip };
+        };
       })
     );
   }
@@ -102,6 +83,18 @@ function App() {
         ...(updated && { isOccupied: true })
       }))
     );
+  }
+
+  function rotate(cell) {
+    let flip = cell.flip;
+    let rotation = (cell.rotation || 0) + 90;
+
+    if (rotation > maxRotation(cell.value)) {
+      rotation = 0;
+      flip = canFlip(cell.value) ? !flip : false;
+    }
+
+    return { ...cell, rotation, flip };
   }
 }
 
