@@ -4,15 +4,23 @@
   border-collapse: collapse;
 }
 
+.score-table th {
+  border-right: 1px solid #000;
+}
+
 .score-table th.star {
   font-size: 25px;
 }
 
 .score-table td {
-  min-width: 18px;
+  min-width: 22px;
   padding: 6px;
   border: 1px solid #000;
   text-align: center;
+}
+
+.score-table td:first-child {
+  border-left-color: transparent;
 }
 
 .score-table td.inactive {
@@ -22,4 +30,8 @@
 
 .score-table td.total {
   font-weight: bold;
+}
+
+.score-table td.spacer {
+  border: none;
 }

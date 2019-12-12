@@ -56,9 +56,9 @@ const TILE_TYPES = {
   MINE: {
     matrix() {
       return [
-        [null, new Node("MINE"), null],
-        [new Node("MINE"), null, new Node("MINE")],
-        [null, new Node("MINE"), null]
+        [null, new Node("MINE", 1), null],
+        [new Node("MINE", 2), null, new Node("MINE", 3)],
+        [null, new Node("MINE", 4), null]
       ];
     }
   }
