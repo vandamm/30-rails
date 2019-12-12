@@ -32,10 +32,18 @@ function getContent(cell) {
         </div>
       );
     case "MOUNTAIN":
-      return <div className="mountain">⛰</div>;
+      return emoji("⛰", "mountain");
     case "MINE":
-      return <div className="mine">⚒️</div>;
+      return emoji("⚒️", "mine");
     default:
       return "";
   }
+}
+
+function emoji(img, className) {
+  return (
+    <span role="img" aria-label={className} className={className}>
+      {img}
+    </span>
+  );
 }
