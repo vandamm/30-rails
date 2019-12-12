@@ -5,7 +5,7 @@ import "./Board.css";
 
 export default function Board(props) {
   const { rows = [], selected, updateCell: onClick } = props;
-  const isActive = cellActivityChecker(rows, selected);
+  const isAvailable = availabilityChecker(rows, selected);
 
   return (
     <table className="board">
@@ -14,7 +14,7 @@ export default function Board(props) {
           <tr key={x}>
             {row.map(cell => (
               <td key={`${cell.x}-${cell.y}`}>
-                <Cell {...{ cell, onClick, isActive: isActive(cell) }} />
+                <Cell {...{ cell, onClick, isAvailable: isAvailable(cell) }} />
               </td>
             ))}
           </tr>
@@ -24,13 +24,13 @@ export default function Board(props) {
   );
 }
 
-export function cellActivityChecker(rows, selected) {
+export function availabilityChecker(rows, selected) {
   const anywhere = !hasValidPlacement(rows, selected);
 
-  return cell => isActive(cell, selected, anywhere);
+  return cell => isAvailable(cell, selected, anywhere);
 }
 
-function isActive(cell, selected, anywhere) {
+function isAvailable(cell, selected, anywhere) {
   if (!selected || cell.isOccupied) return false;
   return anywhere || selected === cell.x || selected === cell.y;
 }
@@ -42,7 +42,7 @@ export function mapBoard(rows, fn) {
 export function hasValidPlacement(rows, selected) {
   for (const row of rows) {
     for (const cell of row) {
-      if (isActive(cell, selected)) return true;
+      if (isAvailable(cell, selected)) return true;
     }
   }
 }

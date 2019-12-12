@@ -3,12 +3,12 @@ import classNames from "classnames";
 import "./Cell.css";
 
 export default function Cell(props) {
-  const { cell, onClick, isActive } = props;
+  const { cell, onClick, isAvailable } = props;
   const classes = classNames([
     "cell",
     cell.type && cell.type.toLowerCase(),
     {
-      selected: isActive,
+      available: isAvailable,
       border: cell.isBorder,
       flipped: cell.flip,
       [`rotated-${cell.rotation}`]: cell.rotation,
@@ -17,7 +17,7 @@ export default function Cell(props) {
   ]);
 
   return (
-    <div className={classes} onClick={() => isActive && onClick(cell)}>
+    <div className={classes} onClick={() => isAvailable && onClick(cell)}>
       {getContent(cell)}
     </div>
   );
