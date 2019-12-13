@@ -1,4 +1,4 @@
-interface Identity {
+export interface Identity {
   id?: number;
   type: string;
 }
