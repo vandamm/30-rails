@@ -9,9 +9,6 @@ export default class Node {
 
   /**
    * Create a new node
-   *
-   * @param {String} [type]
-   * @param {Number} [id]
    */
   constructor(type: string = "TILE", id?: number) {
     this.identity = [{ id, type }];
@@ -21,9 +18,6 @@ export default class Node {
   /**
    * Check if this node has identity of specified type (and maybe id)
    * This is needed to find a node with specified type/id in graph
-   *
-   * @param {Object} matcher
-   * @returns {Boolean}
    */
   is(identity: Identity): boolean {
     const { type, id } = identity;
@@ -36,9 +30,6 @@ export default class Node {
 
   /**
    * Add provided identities to identity of this node
-   *
-   * @param {Object[]} identities
-   * @returns {Node}
    */
   identifyAs(identities: Identity[]): Node {
     for (const identity of identities)
@@ -49,9 +40,6 @@ export default class Node {
 
   /**
    * Add connections between this and other node
-   *
-   * @param {Node} node
-   * @returns {Node}
    */
   linkWith(node: Node): Node {
     if (node === this) return this;
@@ -64,9 +52,6 @@ export default class Node {
 
   /**
    * Remove connections between this and other node
-   *
-   * @param {Node} node
-   * @returns {Node}
    */
   unlinkFrom(node: Node): Node {
     if (node === this) return this;
@@ -77,9 +62,6 @@ export default class Node {
 
   /**
    * Replaces all connections to this node with connections to provided target
-   *
-   * @param {Node} target
-   * @returns {Node}
    */
   replaceWith(target: Node): Node {
     if (target === this) return this;
