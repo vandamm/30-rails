@@ -1,11 +1,19 @@
+interface Identity {
+  id?: number;
+  type: string;
+}
+
 export default class Node {
+  identity: Identity[];
+  connections: Set<Node>;
+
   /**
    * Create a new node
    *
    * @param {String} [type]
    * @param {Number} [id]
    */
-  constructor(type = "TILE", id) {
+  constructor(type: string = "TILE", id?: number) {
     this.identity = [{ id, type }];
     this.connections = new Set();
   }
@@ -17,11 +25,14 @@ export default class Node {
    * @param {Object} matcher
    * @returns {Boolean}
    */
-  is({ type, id }) {
-    const comparator = i =>
-      (type ? i.type === type : true) && (id ? i.id === id : true);
+  is(identity: Identity): boolean {
+    const { type, id } = identity;
 
-    return this.identity.find(comparator) !== undefined;
+    return (
+      this.identity.find(
+        (i: Identity) => i.type === type && (id ? i.id === id : true)
+      ) !== undefined
+    );
   }
 
   /**
@@ -30,7 +41,7 @@ export default class Node {
    * @param {Object[]} identities
    * @returns {Node}
    */
-  identifyAs(identities) {
+  identifyAs(identities: Identity[]): Node {
     for (const identity of identities)
       if (!this.is(identity)) this.identity.push(identity);
 
@@ -43,7 +54,7 @@ export default class Node {
    * @param {Node} node
    * @returns {Node}
    */
-  linkWith(node) {
+  linkWith(node: Node): Node {
     if (node === this) return this;
 
     this.connections.add(node);
@@ -58,7 +69,7 @@ export default class Node {
    * @param {Node} node
    * @returns {Node}
    */
-  unlinkFrom(node) {
+  unlinkFrom(node: Node): Node {
     if (node === this) return this;
 
     this.connections.delete(node);
@@ -71,7 +82,7 @@ export default class Node {
    * @param {Node} target
    * @returns {Node}
    */
-  replaceWith(target) {
+  replaceWith(target: Node): Node {
     if (target === this) return this;
 
     for (const node of this.connections) {
