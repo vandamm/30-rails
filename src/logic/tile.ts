@@ -1,6 +1,10 @@
 import Node from "./node";
 
-const MATRIX = [[0, 1, 0], [2, 0, 3], [0, 4, 0]];
+const MATRIX = [
+  [0, 1, 0],
+  [2, 0, 3],
+  [0, 4, 0]
+];
 const SIZE = 3;
 const TILES = {
   // ⌜
@@ -16,23 +20,35 @@ const TILES = {
   // ⌟⌜
   3: {
     maxRotation: 90,
-    connections: [[1, 2], [3, 4]]
+    connections: [
+      [1, 2],
+      [3, 4]
+    ]
   },
   // +
   4: {
     maxRotation: 0,
-    connections: [[1, 4], [2, 3]]
+    connections: [
+      [1, 4],
+      [2, 3]
+    ]
   },
   // ⌝⌜
   5: {
     maxRotation: 270,
-    connections: [[2, 4], [3, 4]]
+    connections: [
+      [2, 4],
+      [3, 4]
+    ]
   },
   // ⌝|
   6: {
     maxRotation: 270,
     canFlip: true,
-    connections: [[1, 4], [2, 4]]
+    connections: [
+      [1, 4],
+      [2, 4]
+    ]
   }
 };
 
