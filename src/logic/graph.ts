@@ -1,9 +1,8 @@
 import Node, { Identity } from "./node";
+import { Matrix } from "./matrix";
 
 export type Graph = Node[];
 export type Route = Node[];
-// TODO: Figure out if I can find a better typing for matrices
-export type Matrix = any[][];
 
 const topNode = node(0, 1);
 const leftNode = node(1, 0);

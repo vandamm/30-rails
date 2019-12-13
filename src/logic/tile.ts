@@ -1,6 +1,7 @@
 import Node from "./node";
+import { Matrix, transform } from "./matrix";
 
-const MATRIX = [
+const MATRIX: Matrix = [
   [0, 1, 0],
   [2, 0, 3],
   [0, 4, 0]
@@ -105,40 +106,4 @@ function connect(connections) {
   return MATRIX.map(row => {
     return row.map(num => (num > 0 ? nodes[num] : null));
   });
-}
-
-function transform(params, matrix) {
-  return rotate(params.rotation, params.flip ? flip(matrix) : matrix);
-}
-
-function flip(matrix) {
-  let result = [];
-
-  for (let i = 0; i < SIZE; i++) {
-    result[i] = [...matrix[i]].reverse();
-  }
-
-  return result;
-}
-
-function rotate(angle, matrix) {
-  let result = matrix;
-
-  for (let i = 0; i < angle; i += 90) result = rotate90(result);
-
-  return result;
-}
-
-function rotate90(matrix) {
-  let result = [];
-
-  for (let i = 0; i < SIZE; i++) {
-    result[i] = [];
-
-    for (let j = 0; j < SIZE; j++) {
-      result[i][j] = matrix[SIZE - j - 1][i];
-    }
-  }
-
-  return result;
 }
