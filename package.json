@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "keywords": [],
+  "license": "MIT",
   "main": "src/index.js",
   "dependencies": {
     "classnames": "^2.2.6",
