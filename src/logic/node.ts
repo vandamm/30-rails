@@ -29,9 +29,8 @@ export default class Node {
     const { type, id } = identity;
 
     return (
-      this.identity.find(
-        (i: Identity) => i.type === type && (id ? i.id === id : true)
-      ) !== undefined
+      this.identity.find(i => i.type === type && (id ? i.id === id : true)) !==
+      undefined
     );
   }
 
