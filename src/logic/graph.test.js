@@ -46,8 +46,8 @@ it("finds a route between graph nodes", () => {
 
   const graph = buildGraph([[a, b, c]]);
 
-  const start = graph.find(n => n.is({ id: "A0" }));
-  const end = graph.find(n => n.is({ id: "C1" }));
+  const start = graph.find(byId("A0"));
+  const end = graph.find(byId("C1"));
 
   const routes = findRoutes(start, end);
 
@@ -67,17 +67,26 @@ it("finds all routes between graph nodes", () => {
   const a = link(matrix("A", [1, 0], [1, 2]));
   const b = link(
     matrix("B", [1, 0], [1, 2], [2, 1]),
-    [[1, 0], [1, 2]],
-    [[1, 0], [2, 1]]
+    [
+      [1, 0],
+      [1, 2]
+    ],
+    [
+      [1, 0],
+      [2, 1]
+    ]
   );
   const c = link(matrix("C", [1, 0], [2, 1]));
   const d = link(matrix("D", [0, 1], [1, 2]));
   const e = link(matrix("E", [0, 1], [1, 0]));
 
-  const graph = buildGraph([[a, b, c], [null, d, e]]);
+  const graph = buildGraph([
+    [a, b, c],
+    [null, d, e]
+  ]);
 
-  const start = graph.find(n => n.is({ id: "A0" }));
-  const end = graph.find(n => n.is({ id: "E0" }));
+  const start = graph.find(byId("A0"));
+  const end = graph.find(byId("E0"));
 
   const routes = findRoutes(start, end);
 
@@ -139,4 +148,8 @@ function link(matrix, ...links) {
   }
 
   return matrix;
+}
+
+function byId(id) {
+  return node => node.is({ type: null, id });
 }
