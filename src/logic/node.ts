@@ -58,6 +58,8 @@ export default class Node {
 
     this.connections.delete(node);
     node.connections.delete(this);
+
+    return this;
   }
 
   /**
