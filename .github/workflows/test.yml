@@ -1,4 +1,4 @@
-name: Node CI
+name: Test
 
 on: [push]
 
@@ -7,14 +7,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup Node.js 
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-    - name: install, build, and test
-      run: |
-        yarn install --frozen-lockfile
-        yarn test
-      env:
-        CI: true
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install --frozen-lockfile
+      - run: yarn test
