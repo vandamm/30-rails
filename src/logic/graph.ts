@@ -1,3 +1,9 @@
+import Node, { Identity } from "./node";
+import { Matrix } from "./matrix";
+
+export type Graph = Node[];
+export type Route = Node[];
+
 const topNode = node(0, 1);
 const leftNode = node(1, 0);
 const rightNode = node(1, 2);
@@ -6,12 +12,9 @@ const bottomNode = node(2, 1);
 /**
  * Build a graph of connected nodes from matrix of node matrices
  * Mutates nodes for easier operating
- *
- * @param {Array} matrix
- * @returns {Node[]}
  */
-export function buildGraph(matrix) {
-  let graph = [];
+export function buildGraph(matrix: Matrix): Graph {
+  let graph: Graph = [];
 
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
@@ -40,11 +43,17 @@ export function buildGraph(matrix) {
   return graph;
 }
 
-function node(x, y) {
-  return matrix => (matrix && matrix[x] ? matrix[x][y] : void 0);
+/**
+ * Return a function that gets a node from matrix by coordinates
+ */
+function node(x: number, y: number) {
+  return (matrix?: Matrix) => (matrix && matrix[x] ? matrix[x][y] : void 0);
 }
 
-function merge(from, to) {
+/**
+ * Merge first node into second and return the result
+ */
+function merge(from: Node, to: Node): Node {
   if (!from) return to;
   if (!to) return from;
 
@@ -54,18 +63,18 @@ function merge(from, to) {
 /**
  * Search for all routes between nodes from and to
  * Expects them to be connected
- *
- * @typedef {import("./node").default} Node
- *
- * @param {Node} from
- * @param {Node} to
- *
- * @returns {Node[][]}
  */
-export function findRoutes(from, to) {
+export function findRoutes(from?: Node, to?: Node): Route[] {
+  if (!from || !to) return [];
+
   return search(from, to);
 
-  function search(from, to, route = [from], visited = [from]) {
+  function search(
+    from: Node,
+    to: Node,
+    route = [from],
+    visited = [from]
+  ): Route[] {
     const routes = [];
 
     for (const node of from.connections) {
@@ -86,6 +95,6 @@ export function findRoutes(from, to) {
   }
 }
 
-export function findNode(graph, identity) {
+export function findNode(graph: Graph, identity: Identity) {
   return graph.find(node => node.is(identity));
 }
