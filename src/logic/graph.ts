@@ -64,7 +64,9 @@ function merge(from: Node, to: Node): Node {
  * Search for all routes between nodes from and to
  * Expects them to be connected
  */
-export function findRoutes(from: Node, to: Node): Route[] {
+export function findRoutes(from?: Node, to?: Node): Route[] {
+  if (!from || !to) return [];
+
   return search(from, to);
 
   function search(
